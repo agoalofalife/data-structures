@@ -3,7 +3,7 @@
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
-package main
+package stack
 
 import (
 	"log"
@@ -34,7 +34,7 @@ func (stack *Stack) Pop() (value int) {
 }
 
 func (stack *Stack) Count() int {
-	return stack.stack[:1][0]
+	return stack.count
 }
 
 // return the value end of the stack
@@ -46,6 +46,7 @@ func (stack *Stack) Peek() (value int) {
 }
 
 func main() {
+	// example
 	s := Stack{}
 	s.Push(2)
 	s.Push(1)
