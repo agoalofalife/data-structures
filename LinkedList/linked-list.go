@@ -3,7 +3,7 @@
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
-package LinkedList
+package main
 
 import (
 	"fmt"
@@ -137,10 +137,14 @@ func (list *LinkedList) GetByIndex(index int) int {
 func Print(node *Node) {
 	for node.next != nil {
 		fmt.Println(node.value)
+		// Output: 1
 		node = node.next
 	}
 }
 
 func main() {
-
+	nodeFirst := &Node{1, nil}
+	nodeSecond := &Node{2, nil}
+	nodeFirst.next = nodeSecond
+	Print(nodeFirst)
 }

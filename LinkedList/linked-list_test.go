@@ -1,4 +1,4 @@
-package LinkedList
+package main
 
 import (
 	"testing"
@@ -75,3 +75,43 @@ func TestCopyTo(t *testing.T)  {
 		t.Error(`Method CopyTo not work`)
 	}
 }
+
+func TestCount(t *testing.T)  {
+	list := LinkedList{}
+	list.Add(1)
+	list.Add(2)
+
+	if list.Count() != 2 {
+		t.Error(`Method Count not right`)
+	}
+}
+
+func TestIndexOf(t *testing.T)  {
+	list := LinkedList{}
+	list.Add(1)
+	list.Add(2)
+
+	if list.IndexOf(2) != 1{
+		t.Error(`Method indexOf not true index`)
+	}
+}
+
+func TestGetByIndex(t *testing.T)  {
+	list := LinkedList{}
+	list.Add(1)
+	list.Add(2)
+
+	if list.GetByIndex(1) != 2{
+		t.Error(`Position index not true`)
+	}
+}
+
+func TestExampleF(t *testing.T)  {
+	nodeFirst := &Node{1, nil}
+	nodeSecond := &Node{2, nil}
+	nodeFirst.next = nodeSecond
+
+	Print(nodeFirst)
+	// Output: hello
+}
+// go test -v . | sed ''/PASS/s//$(printf "\033[32mPASS\033[0m")/'' | sed ''/FAIL/s//$(printf "\033[31mFAIL\033[0m")/''
