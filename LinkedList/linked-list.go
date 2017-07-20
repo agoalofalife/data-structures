@@ -84,7 +84,7 @@ func (list *LinkedList) Exist(value int) bool {
 }
 
 // all clear collection
-func (list *LinkedList) Clear() bool {
+func (list *LinkedList) Reset() bool {
 	list.head = nil
 	list.last = nil
 	list.count = 0
@@ -115,11 +115,22 @@ func (list *LinkedList) IndexOf(value int) int {
 	for list.current != nil {
 		index++
 		if list.current.value == value {
-		  return index
+			return index
 		}
 		list.current = list.current.next
 	}
 	return index
+}
+
+// Get value by index
+func (list *LinkedList) GetByIndex(index int) int {
+	list.current = list.head
+	count := 0
+	for count < index {
+		count++
+		list.current = list.current.next
+	}
+	return list.current.value
 }
 
 // print empty linked list, function helper
