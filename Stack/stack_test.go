@@ -26,7 +26,7 @@ func TestPop(t *testing.T) {
 	}
 }
 
-func TestPopExpectedPanic(t *testing.T)  {
+func TestPopExpectedPanic(t *testing.T) {
 	defer func() {
 		str := recover()
 		if str != "Stack is empty" {
