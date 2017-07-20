@@ -1,5 +1,3 @@
-
-
 //---------------------------------------------------------------------------
 //-[ Linked List ]------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -11,8 +9,6 @@ import (
 	"fmt"
 )
 
-
-
 type Node struct {
 	value int
 	next  *Node
@@ -23,6 +19,7 @@ func NewNode(number int) *Node {
 	node := &Node{number, nil}
 	return node
 }
+
 // Base struct
 type LinkedList struct {
 	count    int
@@ -110,6 +107,21 @@ func (list *LinkedList) Count() int {
 	return list.count
 }
 
+//get index value
+func (list *LinkedList) IndexOf(value int) int {
+	list.current = list.head
+	index := -1
+
+	for list.current != nil {
+		index++
+		if list.current.value == value {
+		  return index
+		}
+		list.current = list.current.next
+	}
+	return index
+}
+
 // print empty linked list, function helper
 func Print(node *Node) {
 	for node.next != nil {
@@ -119,6 +131,5 @@ func Print(node *Node) {
 }
 
 func main() {
-
 
 }
