@@ -3,7 +3,7 @@
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 
-package main
+package Set
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func (set *Set) Add(value int) {
 }
 
 func (set *Set) AddRange(values []int) {
-	for value := range values {
+	for _, value := range values {
 		set.Add(value)
 	}
 }
@@ -82,21 +82,24 @@ func (set *Set) Difference(newSet Set) Set {
 func (set *Set) SymmetricDifference(newSet Set) Set {
 	union := set.Union(newSet)
 	intersection := set.Intersection(newSet)
-
 	return union.Difference(intersection)
 }
 
+func (set *Set) IsSubset(newSet Set) bool {
+	return len(set.Difference(newSet).collection) == 0
+}
 func main() {
 	s := Set{}
-	s.Add(2)
+
 	s.Add(3)
 	s.Add(4)
 	s.Add(5)
 
 	s2 := Set{}
+	s2.Add(2)
 	s2.Add(3)
 	s2.Add(4)
 	s2.Add(5)
 
-	fmt.Println(s.SymmetricDifference(s2))
+	fmt.Println(s.IsSubset(s2))
 }
