@@ -1,3 +1,8 @@
+//---------------------------------------------------------------------------
+//-[ Set ]-------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
 package main
 
 import (
@@ -12,8 +17,6 @@ type Set struct {
 func (set *Set) Add(value int) {
 	if set.Exist(value) == false {
 		set.collection = append(set.collection, value)
-	} else {
-		panic(`Value already exists in Set`)
 	}
 }
 
@@ -52,12 +55,30 @@ func (set *Set) Count() int {
 	return len(set.collection)
 }
 
+func (set *Set) Union(newSet Set) Set {
+	unionSet := Set{}
+	unionSet.AddRange(set.collection)
+	unionSet.AddRange(newSet.collection)
+	return unionSet
+}
+
+func (set *Set) Intersection(newSet Set) Set {
+	intersectionSet := Set{}
+
+	for _, value := range set.collection {
+		if newSet.Exist(value) == true {
+			intersectionSet.Add(value)
+		}
+	}
+	return intersectionSet
+}
+
 func main() {
 	s := Set{}
 	s.Add(2)
 	s.Add(3)
 	s.Add(4)
 	s.Add(5)
-	s.Remove(4)
-	fmt.Println(s)
+
+	fmt.Println(s.Intersection(s))
 }
