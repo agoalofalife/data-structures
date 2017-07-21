@@ -38,7 +38,6 @@ func (table *HashTable) Add(key string, value string) {
 				table.storage[index][keyStorage][key] = value
 				inserted = true
 			}
-
 		}
 
 		if inserted == false {
@@ -47,14 +46,29 @@ func (table *HashTable) Add(key string, value string) {
 	}
 }
 
+
+func (table *HashTable) Search(key string) (value string){
+	index := hash(key, table.level)
+
+	if _, exist := table.storage[index]; exist == false {
+		return
+	} else {
+		for keyStorage,_ := range table.storage[index]{
+			if value, exist := table.storage[index][keyStorage][key];exist {
+				return value
+			}
+		}
+	}
+	return
+}
 func main() {
 	hash := NewHashTable()
 	hash.Add(`fido`, `dog`)
 	hash.Add(`rex`, `dinosour`)
 	hash.Add(`rex`, `rex`)
 	hash.Add(`rew`, `rew`)
-	hash.Add(`reas`, `reas`)
+	hash.Add(`reas`, `reasValue`)
 
-	fmt.Println(hash)
+	fmt.Println(hash.Search(`reas`))
 	os.Exit(0)
 }
