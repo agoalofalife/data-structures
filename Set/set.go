@@ -7,7 +7,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 )
 
 type Set struct {
@@ -43,8 +42,6 @@ func (set *Set) Remove(value int) bool {
 	for key, valueInCollection := range set.collection {
 		if value == valueInCollection {
 			set.collection = append(set.collection[:key], set.collection[key+1:]...)
-			fmt.Println(set.collection)
-			os.Exit(0)
 			return true
 		}
 	}
@@ -73,6 +70,22 @@ func (set *Set) Intersection(newSet Set) Set {
 	return intersectionSet
 }
 
+func (set *Set) Difference(newSet Set) Set {
+	differenceSet := Set{set.collection}
+
+	for _, value := range newSet.collection {
+		differenceSet.Remove(value)
+	}
+	return differenceSet
+}
+
+func (set *Set) SymmetricDifference(newSet Set) Set {
+	union := set.Union(newSet)
+	intersection := set.Intersection(newSet)
+
+	return union.Difference(intersection)
+}
+
 func main() {
 	s := Set{}
 	s.Add(2)
@@ -80,5 +93,10 @@ func main() {
 	s.Add(4)
 	s.Add(5)
 
-	fmt.Println(s.Intersection(s))
+	s2 := Set{}
+	s2.Add(3)
+	s2.Add(4)
+	s2.Add(5)
+
+	fmt.Println(s.SymmetricDifference(s2))
 }
