@@ -12,48 +12,36 @@ func hash(value string, level int) (hash int) {
 	return hash % level
 }
 
-func capUp(slice [][]string, number int) [][]string {
-	newSlice := make([][]string, number+1)
-	for i := range slice {
-		newSlice[i] = slice[i]
-	}
-	slice = newSlice
-	return slice
-}
-
 type HashTable struct {
 	level   int
-	storage [][]string
+	storage map[int]map[string]string
 }
 
 func NewHashTable() *HashTable {
 	hash := HashTable{}
 	hash.level = 14
+	hash.storage = make(map[int]map[string]string)
 	return &hash
 }
 
 func (table *HashTable) Add(key string, value string) {
 	index := hash(key, table.level)
-	fmt.Println(index)
-	// feature language golang equals isset or exist
-	if len(table.storage)-1 <= index {
-		// size up
-		table.storage = capUp(table.storage, index)
 
-		//table.storage = make([][]string, index+1)
-		table.storage[index] = []string{key, value}
+	if _, exist := table.storage[index]; exist == false {
+
+		table.storage[index] = map[string]string{key: value}
 	} else {
-
 		inserted := false
-		for keyStorage, _ := range table.storage {
-			if table.storage[index][keyStorage] == key {
-				table.storage[index][1] = value
+
+		for keyStorage, _ := range table.storage[index] {
+			if table.storage[index][keyStorage] != value {
+				table.storage[index][keyStorage] = value
 			}
 			inserted = true
 		}
 
 		if inserted == false {
-			table.storage[index] = append(table.storage[index], key, value)
+			table.storage[index] = map[string]string{key: value}
 		}
 	}
 }
@@ -62,7 +50,9 @@ func main() {
 	hash := NewHashTable()
 	hash.Add(`fido`, `dog`)
 	hash.Add(`rex`, `dinosour`)
-	hash.Add(`rex`, `dinosour`)
+	hash.Add(`rex`, `rex`)
+	hash.Add(`rew`, `rew`)
+	hash.Add(`reas`, `reas`)
 
 	fmt.Println(hash)
 	os.Exit(0)
