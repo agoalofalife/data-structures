@@ -14,13 +14,13 @@ func hash(value string, level int) (hash int) {
 
 type HashTable struct {
 	level   int
-	storage map[int]map[string]string
+	storage map[int]map[int]map[string]string
 }
 
 func NewHashTable() *HashTable {
 	hash := HashTable{}
 	hash.level = 14
-	hash.storage = make(map[int]map[string]string)
+	hash.storage = make(map[int]map[int]map[string]string)
 	return &hash
 }
 
@@ -28,20 +28,21 @@ func (table *HashTable) Add(key string, value string) {
 	index := hash(key, table.level)
 
 	if _, exist := table.storage[index]; exist == false {
-
-		table.storage[index] = map[string]string{key: value}
+		table.storage[index] = make(map[int]map[string]string)
+		table.storage[index][len(table.storage[index])] = map[string]string{key: value}
 	} else {
 		inserted := false
 
 		for keyStorage, _ := range table.storage[index] {
-			if table.storage[index][keyStorage] != value {
-				table.storage[index][keyStorage] = value
+			if _, exist := table.storage[index][keyStorage][key] ;exist{
+				table.storage[index][keyStorage][key] = value
+				inserted = true
 			}
-			inserted = true
+
 		}
 
 		if inserted == false {
-			table.storage[index] = map[string]string{key: value}
+			table.storage[index][len(table.storage[index])] = map[string]string{key: value}
 		}
 	}
 }
