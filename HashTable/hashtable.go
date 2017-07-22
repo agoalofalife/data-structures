@@ -61,6 +61,23 @@ func (table *HashTable) Search(key string) (value string){
 	}
 	return
 }
+
+func (table *HashTable) Remove(key string) bool{
+	index := hash(key, table.level)
+	_, exist := table.storage[index][0][key]
+	if len(table.storage[index]) == 1 && exist {
+		delete(table.storage, index)
+		return  true
+	} else {
+		for keyStorage,_ := range table.storage[index] {
+			if _, exist := table.storage[index][keyStorage][key] ;exist{
+				delete(table.storage[index], keyStorage)
+				return true
+			}
+		}
+	}
+	return false
+}
 func main() {
 	hash := NewHashTable()
 	hash.Add(`fido`, `dog`)
@@ -69,6 +86,6 @@ func main() {
 	hash.Add(`rew`, `rew`)
 	hash.Add(`reas`, `reasValue`)
 
-	fmt.Println(hash.Search(`reas`))
+	fmt.Println(	hash.Remove(`fido`))
 	os.Exit(0)
 }
