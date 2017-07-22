@@ -1,4 +1,4 @@
-package hashtable
+package main
 
 import (
 	"fmt"
@@ -34,7 +34,7 @@ func (table *HashTable) Add(key string, value string) {
 		inserted := false
 
 		for keyStorage, _ := range table.storage[index] {
-			if _, exist := table.storage[index][keyStorage][key] ;exist{
+			if _, exist := table.storage[index][keyStorage][key]; exist {
 				table.storage[index][keyStorage][key] = value
 				inserted = true
 			}
@@ -46,15 +46,14 @@ func (table *HashTable) Add(key string, value string) {
 	}
 }
 
-
-func (table *HashTable) Search(key string) (value string){
+func (table *HashTable) Search(key string) (value string) {
 	index := hash(key, table.level)
 
 	if _, exist := table.storage[index]; exist == false {
 		return
 	} else {
-		for keyStorage,_ := range table.storage[index]{
-			if value, exist := table.storage[index][keyStorage][key];exist {
+		for keyStorage, _ := range table.storage[index] {
+			if value, exist := table.storage[index][keyStorage][key]; exist {
 				return value
 			}
 		}
@@ -62,21 +61,34 @@ func (table *HashTable) Search(key string) (value string){
 	return
 }
 
-func (table *HashTable) Remove(key string) bool{
+func (table *HashTable) Remove(key string) bool {
 	index := hash(key, table.level)
 	_, exist := table.storage[index][0][key]
 	if len(table.storage[index]) == 1 && exist {
 		delete(table.storage, index)
-		return  true
+		return true
 	} else {
-		for keyStorage,_ := range table.storage[index] {
-			if _, exist := table.storage[index][keyStorage][key] ;exist{
+		for keyStorage, _ := range table.storage[index] {
+			if _, exist := table.storage[index][keyStorage][key]; exist {
 				delete(table.storage[index], keyStorage)
 				return true
 			}
 		}
 	}
 	return false
+}
+
+func (table *HashTable) String() {
+	fmt.Println(`-------------------------`)
+	fmt.Println(`     Key       Name     `)
+
+	for _, Map := range table.storage {
+		for _, innerValue := range Map {
+			for baseKey, Value := range innerValue {
+				fmt.Printf("    %s       %s    \n", baseKey, Value)
+			}
+		}
+	}
 }
 func main() {
 	hash := NewHashTable()
@@ -85,7 +97,8 @@ func main() {
 	hash.Add(`rex`, `rex`)
 	hash.Add(`rew`, `rew`)
 	hash.Add(`reas`, `reasValue`)
-	hash.Remove(`reas`)
-	fmt.Println(hash)
+	//hash.Remove(`reas`)
+
+	hash.String()
 	os.Exit(0)
 }

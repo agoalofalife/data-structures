@@ -1,8 +1,8 @@
-package hashtable
+package main
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func TestNewHashTable(t *testing.T) {
@@ -11,8 +11,8 @@ func TestNewHashTable(t *testing.T) {
 	}
 }
 
-func TestHashFunction(t *testing.T)  {
-	if reflect.TypeOf(hash(`key`, 10)).Kind()  != reflect.Int {
+func TestHashFunction(t *testing.T) {
+	if reflect.TypeOf(hash(`key`, 10)).Kind() != reflect.Int {
 		t.Error(`Hash function not make int`)
 	}
 }
@@ -39,7 +39,7 @@ func TestHashTable_Remove(t *testing.T) {
 	hash.Add(`one`, `number`)
 	hash.Add(`two`, `number2`)
 
-	if 	hash.Remove(`one`) != true{
+	if hash.Remove(`one`) != true {
 		t.Error(`Method Remove not work`)
 	}
 }
