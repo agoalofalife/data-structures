@@ -1,4 +1,4 @@
-package main
+package hashtable
 
 import (
 	"fmt"
@@ -85,7 +85,7 @@ func main() {
 	hash.Add(`rex`, `rex`)
 	hash.Add(`rew`, `rew`)
 	hash.Add(`reas`, `reasValue`)
-
-	fmt.Println(	hash.Remove(`fido`))
+	hash.Remove(`reas`)
+	fmt.Println(hash)
 	os.Exit(0)
 }
