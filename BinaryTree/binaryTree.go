@@ -16,7 +16,7 @@ type Node struct {
 // If value Node < then value = -1
 // else return 0
 func (node *Node) CompareTo(value int) (meter int) {
-	if node.value == 0 {
+	if node.value == value {
 		return 0
 	} else if node.value > value {
 		return 1
@@ -61,14 +61,20 @@ func (tree *BinaryTree) addTo(node *Node, value int) {
 	}
 }
 
-func (tree *BinaryTree) Remove(value int) {
-
+func (tree *BinaryTree) Remove(value int) bool {
+	parent := Node{}
+	current := tree.findWithParent(value, &parent)
+	if current == nil {
+		return false
+	}
+	return true
 }
 
-func (tree *BinaryTree) findParent(value int, parent *Node) *Node {
+func (tree *BinaryTree) findWithParent(value int, parent *Node) *Node {
 	current := tree.head
 	for current != nil {
 		meter := current.CompareTo(value)
+
 		if meter == 1 {
 			parent = current
 			current = current.left
@@ -79,6 +85,8 @@ func (tree *BinaryTree) findParent(value int, parent *Node) *Node {
 			break
 		}
 	}
+	//fmt.Println( parent)
+	//os.Exit(0)
 	return current
 }
 func main() {
@@ -87,7 +95,7 @@ func main() {
 	tree.Add(4)
 	tree.Add(1)
 	s := &Node{}
-	tree.findParent(1, s)
+	tree.findWithParent(1, s)
 	fmt.Println(s)
 	os.Exit(0)
 }
