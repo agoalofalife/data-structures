@@ -1,4 +1,4 @@
-package main
+package binaryTree
 
 import (
 	"fmt"
@@ -101,13 +101,13 @@ func (tree *BinaryTree) Contains(value int) bool {
 	finder, _ := tree.findWithParent(value)
 	return finder != nil
 }
-func (tree *BinaryTree) Count(value int) int {
+func (tree *BinaryTree) Count() int {
 	return tree.count
 }
 
-func (tree *BinaryTree) Clear(value int) {
+func (tree *BinaryTree) Clear() {
 	tree.head = nil
-	tree.count = nil
+	tree.count = 0
 }
 
 // find value position and return value node and his parent node
