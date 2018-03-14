@@ -25,6 +25,7 @@ func merge(nodeFirst *Rope, nodeSecond *Rope) *Rope {
 }
 func split(node *Rope, i int) (*Rope, *Rope) {
 	tree1, tree2 := new(Rope), new(Rope)
+	// check node is not empty
 	if node.left != nil {
 		if node.left.weight >= i {
 			tree1, tree2.left = split(node.left, i)
@@ -36,6 +37,7 @@ func split(node *Rope, i int) (*Rope, *Rope) {
 			tree1.weight = tree1.left.weight + tree1.right.weight
 		}
 	} else {
+		// node have't leaf
 		tree1.char = node.char[0:i]
 		tree2.char = node.char[i:len(node.char)]
 		tree1.weight = i
